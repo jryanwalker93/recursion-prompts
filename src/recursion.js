@@ -36,6 +36,54 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  //take copy of input array
+  var arrayCopy = array.slice();
+//function to flatten array of any depth
+  var flatten = function(arr) {
+    //create output array
+    var returnArray = [];
+    //iterate thru input array
+    for (var i = 0; i < arr.length; i++){
+      //if current position of array is an array
+      if (Array.isArray(arr[i])){
+        //call flatten function on current position, and concat it onto the output array
+        returnArray = returnArray.concat(flatten(arr[i]));
+      } else {
+        //if current position is not array, push it onto end of output array
+        returnArray.push(arr[i]);
+      }
+    }
+    //return output array
+    return returnArray;
+  }
+  //call flatten function on array copy
+  arrayCopy = flatten(arrayCopy);
+
+  // check for length, if empty return 0
+  if (arrayCopy.length === 0) {
+    return 0;
+  }
+  // remove last element of array
+  var num = arrayCopy.pop();
+  //check if that element is an array itself
+  // if (Array.isArray(num)) {
+  //   //if so, return 0 once length of inner array is =
+  //   // if (num.length === 0) {
+  //   //   return;
+  //   // }
+  //   //take copy of inner array
+  //   var innerArrayCopy = num.slice();
+  //   //remove last element of inner array
+  //   var innerNum = innerArrayCopy.pop();
+
+  //   //add that element & call function again on inner array
+  //   return Number.parseInt(innerNum) + Number.parseInt(arraySum(innerArrayCopy));
+  // }
+  //back to the array input originally
+  //add element & call function again on original input array
+  // console.log(num);
+  return Number.parseInt(num) + Number.parseInt(arraySum(arrayCopy));
+
 };
 
 // 4. Check if a number is even.
