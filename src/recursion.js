@@ -38,7 +38,8 @@ var sum = function(array) {
 var arraySum = function(array) {
   //take copy of input array
   var arrayCopy = array.slice();
-//function to flatten array of any depth
+
+  //function to flatten array of any depth
   var flatten = function(arr) {
     //create output array
     var returnArray = [];
@@ -88,12 +89,37 @@ var arraySum = function(array) {
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+
+  //subtracting 2 from even numbers will eventually result in 0
+  //subtracting 2 from odd numbers will eventually result in -1
+  if (n === 0) {
+    return true;
+  } else if (n === -1){
+    return false;
+  }
+
+  n = Math.abs(n) - 2;
+  return isEven(n);
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  var sum = 0
+
+  //base case, if we are at zero return sum
+  if (n === 0) {
+    return 0;
+  // if n is negative, sum up numbers between n and 0 by adding 1 to n
+  } else if (n < 0) {
+    sum += n + 1;
+    return sum + sumBelow(n+1);
+  // if n is positive, sum up numbers between n & 0 by subtracting 1 fron m
+  } else {
+    sum += n-1
+    return sum + sumBelow(n-1);
+  }
 };
 
 // 6. Get the integers within a range (x, y).
